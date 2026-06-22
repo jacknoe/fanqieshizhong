@@ -1,0 +1,44 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#1A1A2E"
+    },
+    {
+      "name": "bg_primary",
+      "value": "#1A1A2E"
+    },
+    {
+      "name": "bg_card",
+      "value": "#16213E"
+    },
+    {
+      "name": "focus_color",
+      "value": "#FF6B6B"
+    },
+    {
+      "name": "break_color",
+      "value": "#4ECB71"
+    },
+    {
+      "name": "text_primary",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "text_secondary",
+      "value": "#AAAAAA"
+    },
+    {
+      "name": "text_muted",
+      "value": "#666666"
+    },
+    {
+      "name": "progress_bg",
+      "value": "#2A2A4A"
+    },
+    {
+      "name": "tab_inactive",
+      "value": "#555555"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "番茄时钟"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "番茄时钟 - 专注效率工具"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "番茄时钟"
+    },
+    {
+      "name": "tab_timer",
+      "value": "专注"
+    },
+    {
+      "name": "tab_statistics",
+      "value": "统计"
+    },
+    {
+      "name": "tab_settings",
+      "value": "设置"
+    },
+    {
+      "name": "state_focus",
+      "value": "专注中"
+    },
+    {
+      "name": "state_short_break",
+      "value": "短休息"
+    },
+    {
+      "name": "state_long_break",
+      "value": "长休息"
+    },
+    {
+      "name": "start",
+      "value": "开始"
+    },
+    {
+      "name": "pause",
+      "value": "暂停"
+    },
+    {
+      "name": "resume",
+      "value": "继续"
+    },
+    {
+      "name": "reset",
+      "value": "重置"
+    },
+    {
+      "name": "today_completed",
+      "value": "今日完成"
+    },
+    {
+      "name": "total_focus_time",
+      "value": "总专注时长"
+    },
+    {
+      "name": "completed_pomodoros",
+      "value": "完成番茄数"
+    },
+    {
+      "name": "focus_duration",
+      "value": "专注时长"
+    },
+    {
+      "name": "short_break_duration",
+      "value": "短休息时长"
+    },
+    {
+      "name": "long_break_duration",
+      "value": "长休息时长"
+    },
+    {
+      "name": "long_break_interval",
+      "value": "长休息间隔"
+    },
+    {
+      "name": "daily_goal",
+      "value": "每日目标"
+    },
+    {
+      "name": "minutes",
+      "value": "分钟"
+    },
+    {
+      "name": "pomodoro",
+      "value": "个番茄"
+    }
+  ]
+}
