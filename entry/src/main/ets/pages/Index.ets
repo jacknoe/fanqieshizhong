@@ -15,6 +15,10 @@ struct Index {
 
   aboutToAppear(): void {
     this.timerService.init();
+
+    //调用 TimerService 的 setOnFocusComplete 方法，把箭头函数传进去，TimerService 内部用 = 把收到的箭头函数存到自己的 onFocusComplete 属性里。
+    //***遇到自己不清楚的，一定要花时间搞清楚，不能模棱两可，之前一直不知道这种写法干了什么事，今天才知道
+    //不会立即执行onFocusComplete方法，意识到这个很重要，也很基础
     this.timerService.setOnFocusComplete(() => {
       this.onFocusComplete();
     });
