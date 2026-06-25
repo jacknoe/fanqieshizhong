@@ -37,20 +37,6 @@ export struct TimerPage {
     return '#FF6B6B';
   }
 
-  get canStart(): boolean {
-    return this.state === TimerState.IDLE;
-  }
-
-  get isRunning(): boolean {
-    return this.state === TimerState.FOCUSING || this.state === TimerState.SHORT_BREAK ||
-      this.state === TimerState.LONG_BREAK;
-  }
-
-  get isPaused(): boolean {
-    return this.state === TimerState.FOCUS_PAUSED || this.state === TimerState.SHORT_BREAK_PAUSED ||
-      this.state === TimerState.LONG_BREAK_PAUSED;
-  }
-
   build() {
     Column() {
       Stack() {
@@ -77,7 +63,7 @@ export struct TimerPage {
       .height(280)
 
       Row() {
-        if (this.canStart) {
+        if (this.state === TimerState.IDLE) {
           Button('开始')
             .width(120)
             .height(48)
@@ -89,7 +75,8 @@ export struct TimerPage {
             .onClick(() => {
               this.timerService.startFocus();
             })
-        } else if (this.isRunning) {
+        } else if (this.state === TimerState.FOCUSING || this.state === TimerState.SHORT_BREAK ||
+          this.state === TimerState.LONG_BREAK) {
           Button('暂停')
             .width(120)
             .height(48)
@@ -101,7 +88,8 @@ export struct TimerPage {
             .onClick(() => {
               this.timerService.pause();
             })
-        } else if (this.isPaused) {
+        } else if (this.state === TimerState.FOCUS_PAUSED || this.state === TimerState.SHORT_BREAK_PAUSED ||
+          this.state === TimerState.LONG_BREAK_PAUSED) {
           Button('继续')
             .width(120)
             .height(48)
@@ -115,7 +103,7 @@ export struct TimerPage {
             })
         }
 
-        if (!this.canStart) {
+        if (this.state !== TimerState.IDLE) {
           Blank()
             .width(24)
           Button('重置')
