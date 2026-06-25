@@ -9,6 +9,7 @@ export default class EntryAbility extends UIAbility {
   private timerService: TimerService = TimerService.getInstance();
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    this.timerService.init();
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
   }
 

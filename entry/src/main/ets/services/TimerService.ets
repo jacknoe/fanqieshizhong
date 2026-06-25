@@ -19,22 +19,20 @@ export class TimerService {
   }
 
   init(): void {
-    if (!AppStorage.has(AppStorageKeys.TIMER_STATE)) {
-      AppStorage.set(AppStorageKeys.TIMER_STATE, TimerState.IDLE);
-      AppStorage.set(AppStorageKeys.REMAINING_SECONDS, DEFAULT_FOCUS_MINUTES * 60);
-      AppStorage.set(AppStorageKeys.TOTAL_SECONDS, DEFAULT_FOCUS_MINUTES * 60);
-      AppStorage.set(AppStorageKeys.COMPLETED_POMODOROS, 0);
-      AppStorage.set(AppStorageKeys.SESSION_POMODOROS, 0);
-      AppStorage.set(AppStorageKeys.FOCUS_MINUTES, DEFAULT_FOCUS_MINUTES);
-      AppStorage.set(AppStorageKeys.SHORT_BREAK_MINUTES, DEFAULT_SHORT_BREAK_MINUTES);
-      AppStorage.set(AppStorageKeys.LONG_BREAK_MINUTES, DEFAULT_LONG_BREAK_MINUTES);
-      AppStorage.set(AppStorageKeys.DAILY_GOAL, 8);
-      AppStorage.set(AppStorageKeys.LONG_BREAK_INTERVAL, POMODOROS_BEFORE_LONG_BREAK);
-      AppStorage.set(AppStorageKeys.END_TIMESTAMP, 0);
-      AppStorage.set(AppStorageKeys.TODAY_COMPLETED, 0);
-      AppStorage.set(AppStorageKeys.TODAY_FOCUS_MINUTES, 0);
-      AppStorage.set(AppStorageKeys.CURRENT_TAB, 0);
-    }
+    AppStorage.setOrCreate(AppStorageKeys.TIMER_STATE, TimerState.IDLE);
+    AppStorage.setOrCreate(AppStorageKeys.REMAINING_SECONDS, DEFAULT_FOCUS_MINUTES * 60);
+    AppStorage.setOrCreate(AppStorageKeys.TOTAL_SECONDS, DEFAULT_FOCUS_MINUTES * 60);
+    AppStorage.setOrCreate(AppStorageKeys.COMPLETED_POMODOROS, 0);
+    AppStorage.setOrCreate(AppStorageKeys.SESSION_POMODOROS, 0);
+    AppStorage.setOrCreate(AppStorageKeys.FOCUS_MINUTES, DEFAULT_FOCUS_MINUTES);
+    AppStorage.setOrCreate(AppStorageKeys.SHORT_BREAK_MINUTES, DEFAULT_SHORT_BREAK_MINUTES);
+    AppStorage.setOrCreate(AppStorageKeys.LONG_BREAK_MINUTES, DEFAULT_LONG_BREAK_MINUTES);
+    AppStorage.setOrCreate(AppStorageKeys.DAILY_GOAL, 8);
+    AppStorage.setOrCreate(AppStorageKeys.LONG_BREAK_INTERVAL, POMODOROS_BEFORE_LONG_BREAK);
+    AppStorage.setOrCreate(AppStorageKeys.END_TIMESTAMP, 0);
+    AppStorage.setOrCreate(AppStorageKeys.TODAY_COMPLETED, 0);
+    AppStorage.setOrCreate(AppStorageKeys.TODAY_FOCUS_MINUTES, 0);
+    AppStorage.setOrCreate(AppStorageKeys.CURRENT_TAB, 0);
   }
 
   getState(): string {
@@ -44,27 +42,27 @@ export class TimerService {
   startFocus(): void {
     const focusMinutes = AppStorage.get(AppStorageKeys.FOCUS_MINUTES) as number;
     const totalSec = focusMinutes * 60;
-    AppStorage.set(AppStorageKeys.TOTAL_SECONDS, totalSec);
-    AppStorage.set(AppStorageKeys.REMAINING_SECONDS, totalSec);
-    AppStorage.set(AppStorageKeys.TIMER_STATE, TimerState.FOCUSING);
+    AppStorage.setOrCreate(AppStorageKeys.TOTAL_SECONDS, totalSec);
+    AppStorage.setOrCreate(AppStorageKeys.REMAINING_SECONDS, totalSec);
+    AppStorage.setOrCreate(AppStorageKeys.TIMER_STATE, TimerState.FOCUSING);
     this.startTicking(totalSec);
   }
 
   startShortBreak(): void {
     const breakMinutes = AppStorage.get(AppStorageKeys.SHORT_BREAK_MINUTES) as number;
     const totalSec = breakMinutes * 60;
-    AppStorage.set(AppStorageKeys.TOTAL_SECONDS, totalSec);
-    AppStorage.set(AppStorageKeys.REMAINING_SECONDS, totalSec);
-    AppStorage.set(AppStorageKeys.TIMER_STATE, TimerState.SHORT_BREAK);
+    AppStorage.setOrCreate(AppStorageKeys.TOTAL_SECONDS, totalSec);
+    AppStorage.setOrCreate(AppStorageKeys.REMAINING_SECONDS, totalSec);
+    AppStorage.setOrCreate(AppStorageKeys.TIMER_STATE, TimerState.SHORT_BREAK);
     this.startTicking(totalSec);
   }
 
   startLongBreak(): void {
     const breakMinutes = AppStorage.get(AppStorageKeys.LONG_BREAK_MINUTES) as number;
     const totalSec = breakMinutes * 60;
-    AppStorage.set(AppStorageKeys.TOTAL_SECONDS, totalSec);
-    AppStorage.set(AppStorageKeys.REMAINING_SECONDS, totalSec);
-    AppStorage.set(AppStorageKeys.TIMER_STATE, TimerState.LONG_BREAK);
+    AppStorage.setOrCreate(AppStorageKeys.TOTAL_SECONDS, totalSec);
+    AppStorage.setOrCreate(AppStorageKeys.REMAINING_SECONDS, totalSec);
+    AppStorage.setOrCreate(AppStorageKeys.TIMER_STATE, TimerState.LONG_BREAK);
     this.startTicking(totalSec);
   }
 
@@ -78,8 +76,8 @@ export class TimerService {
     } else if (state === TimerState.LONG_BREAK) {
       newState = TimerState.LONG_BREAK_PAUSED;
     }
-    AppStorage.set(AppStorageKeys.TIMER_STATE, newState);
-    AppStorage.set(AppStorageKeys.END_TIMESTAMP, 0);
+    AppStorage.setOrCreate(AppStorageKeys.TIMER_STATE, newState);
+    AppStorage.setOrCreate(AppStorageKeys.END_TIMESTAMP, 0);
     this.stopTicking();
   }
 
@@ -94,17 +92,17 @@ export class TimerService {
     } else if (state === TimerState.LONG_BREAK_PAUSED) {
       newState = TimerState.LONG_BREAK;
     }
-    AppStorage.set(AppStorageKeys.TIMER_STATE, newState);
+    AppStorage.setOrCreate(AppStorageKeys.TIMER_STATE, newState);
     this.startTicking(remaining);
   }
 
   reset(): void {
     this.stopTicking();
     const focusMinutes = AppStorage.get(AppStorageKeys.FOCUS_MINUTES) as number;
-    AppStorage.set(AppStorageKeys.TIMER_STATE, TimerState.IDLE);
-    AppStorage.set(AppStorageKeys.REMAINING_SECONDS, focusMinutes * 60);
-    AppStorage.set(AppStorageKeys.TOTAL_SECONDS, focusMinutes * 60);
-    AppStorage.set(AppStorageKeys.END_TIMESTAMP, 0);
+    AppStorage.setOrCreate(AppStorageKeys.TIMER_STATE, TimerState.IDLE);
+    AppStorage.setOrCreate(AppStorageKeys.REMAINING_SECONDS, focusMinutes * 60);
+    AppStorage.setOrCreate(AppStorageKeys.TOTAL_SECONDS, focusMinutes * 60);
+    AppStorage.setOrCreate(AppStorageKeys.END_TIMESTAMP, 0);
   }
 
   handleAppForeground(): void {
@@ -113,7 +111,7 @@ export class TimerService {
     const running = state === TimerState.FOCUSING || state === TimerState.SHORT_BREAK || state === TimerState.LONG_BREAK;
     if (running && endTs > 0) {
       const remaining = Math.max(0, Math.ceil((endTs - Date.now()) / 1000));
-      AppStorage.set(AppStorageKeys.REMAINING_SECONDS, remaining);
+      AppStorage.setOrCreate(AppStorageKeys.REMAINING_SECONDS, remaining);
       if (remaining <= 0) {
         this.handleTimerComplete();
       } else {
@@ -132,7 +130,7 @@ export class TimerService {
     const running = state === TimerState.FOCUSING || state === TimerState.SHORT_BREAK || state === TimerState.LONG_BREAK;
     if (running) {
       const remaining = AppStorage.get(AppStorageKeys.REMAINING_SECONDS) as number;
-      AppStorage.set(AppStorageKeys.END_TIMESTAMP, Date.now() + remaining * 1000);
+      AppStorage.setOrCreate(AppStorageKeys.END_TIMESTAMP, Date.now() + remaining * 1000);
     }
     this.stopTicking();
   }
@@ -142,7 +140,7 @@ export class TimerService {
     let remaining = seconds;
     this.timerId = setInterval(() => {
       remaining--;
-      AppStorage.set(AppStorageKeys.REMAINING_SECONDS, remaining);
+      AppStorage.setOrCreate(AppStorageKeys.REMAINING_SECONDS, remaining);
       if (remaining <= 0) {
         this.stopTicking();
         this.handleTimerComplete();
@@ -163,25 +161,25 @@ export class TimerService {
 
   private handleTimerComplete(): void {
     const state = this.getState();
-    AppStorage.set(AppStorageKeys.REMAINING_SECONDS, 0);
-    AppStorage.set(AppStorageKeys.END_TIMESTAMP, 0);
+    AppStorage.setOrCreate(AppStorageKeys.REMAINING_SECONDS, 0);
+    AppStorage.setOrCreate(AppStorageKeys.END_TIMESTAMP, 0);
 
     if (state === TimerState.FOCUSING) {
       let completed = AppStorage.get(AppStorageKeys.COMPLETED_POMODOROS) as number;
       let session = AppStorage.get(AppStorageKeys.SESSION_POMODOROS) as number;
       completed++;
       session++;
-      AppStorage.set(AppStorageKeys.COMPLETED_POMODOROS, completed);
-      AppStorage.set(AppStorageKeys.SESSION_POMODOROS, session);
+      AppStorage.setOrCreate(AppStorageKeys.COMPLETED_POMODOROS, completed);
+      AppStorage.setOrCreate(AppStorageKeys.SESSION_POMODOROS, session);
       this.updateTodayStats();
       if (this.onFocusComplete !== null) {
         this.onFocusComplete();
       }
     } else {
-      AppStorage.set(AppStorageKeys.TIMER_STATE, TimerState.IDLE);
+      AppStorage.setOrCreate(AppStorageKeys.TIMER_STATE, TimerState.IDLE);
       const focusMinutes = AppStorage.get(AppStorageKeys.FOCUS_MINUTES) as number;
-      AppStorage.set(AppStorageKeys.REMAINING_SECONDS, focusMinutes * 60);
-      AppStorage.set(AppStorageKeys.TOTAL_SECONDS, focusMinutes * 60);
+      AppStorage.setOrCreate(AppStorageKeys.REMAINING_SECONDS, focusMinutes * 60);
+      AppStorage.setOrCreate(AppStorageKeys.TOTAL_SECONDS, focusMinutes * 60);
     }
   }
 
@@ -191,8 +189,8 @@ export class TimerService {
     todayCompleted++;
     const focusMinutes = AppStorage.get(AppStorageKeys.FOCUS_MINUTES) as number;
     todayMinutes += focusMinutes;
-    AppStorage.set(AppStorageKeys.TODAY_COMPLETED, todayCompleted);
-    AppStorage.set(AppStorageKeys.TODAY_FOCUS_MINUTES, todayMinutes);
+    AppStorage.setOrCreate(AppStorageKeys.TODAY_COMPLETED, todayCompleted);
+    AppStorage.setOrCreate(AppStorageKeys.TODAY_FOCUS_MINUTES, todayMinutes);
   }
 
   getTodayCompleted(): number {
@@ -204,9 +202,9 @@ export class TimerService {
   }
 
   resetDailyStats(): void {
-    AppStorage.set(AppStorageKeys.TODAY_COMPLETED, 0);
-    AppStorage.set(AppStorageKeys.TODAY_FOCUS_MINUTES, 0);
-    AppStorage.set(AppStorageKeys.COMPLETED_POMODOROS, 0);
-    AppStorage.set(AppStorageKeys.SESSION_POMODOROS, 0);
+    AppStorage.setOrCreate(AppStorageKeys.TODAY_COMPLETED, 0);
+    AppStorage.setOrCreate(AppStorageKeys.TODAY_FOCUS_MINUTES, 0);
+    AppStorage.setOrCreate(AppStorageKeys.COMPLETED_POMODOROS, 0);
+    AppStorage.setOrCreate(AppStorageKeys.SESSION_POMODOROS, 0);
   }
 }
