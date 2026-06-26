@@ -10,11 +10,6 @@ export struct StatisticsPage {
   private settings: CanvasRenderingContext2D = new CanvasRenderingContext2D();
   private chartWidth: number = 360;
 
-  get goalProgress(): number {
-    if (this.dailyGoal <= 0) return 0;
-    return Math.min(1, this.todayCompleted / this.dailyGoal);
-  }
-
   build() {
     Column() {
       Scroll() {
@@ -85,7 +80,7 @@ export struct StatisticsPage {
       .width('100%')
       .justifyContent(FlexAlign.SpaceBetween)
 
-      Progress({ value: this.goalProgress, total: 1, type: ProgressType.Ring })
+      Progress({ value: this.dailyGoal <= 0 ? 0 : Math.min(1, this.todayCompleted / this.dailyGoal), total: 1, type: ProgressType.Ring })
         .width(80)
         .height(80)
         .style({ strokeWidth: 8 })
