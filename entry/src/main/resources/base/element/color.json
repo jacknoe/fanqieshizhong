@@ -2,15 +2,15 @@
   "color": [
     {
       "name": "start_window_background",
-      "value": "#1A1A2E"
+      "value": "#F0F2F5"
     },
     {
       "name": "bg_primary",
-      "value": "#1A1A2E"
+      "value": "#F0F2F5"
     },
     {
       "name": "bg_card",
-      "value": "#16213E"
+      "value": "#FFFFFF"
     },
     {
       "name": "focus_color",
@@ -22,23 +22,23 @@
     },
     {
       "name": "text_primary",
-      "value": "#FFFFFF"
+      "value": "#333333"
     },
     {
       "name": "text_secondary",
-      "value": "#AAAAAA"
-    },
-    {
-      "name": "text_muted",
       "value": "#666666"
     },
     {
+      "name": "text_muted",
+      "value": "#999999"
+    },
+    {
       "name": "progress_bg",
-      "value": "#2A2A4A"
+      "value": "#E8E8E8"
     },
     {
       "name": "tab_inactive",
-      "value": "#555555"
+      "value": "#999999"
     }
   ]
 }

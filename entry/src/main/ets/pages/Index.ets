@@ -80,7 +80,7 @@ struct Index {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#1A1A2E')
+    .backgroundColor('#F0F2F5')
   }
 
   @Builder
@@ -88,7 +88,7 @@ struct Index {
     Column() {
       Text(label)
         .fontSize(14)
-        .fontColor(this.currentTab === index ? '#FF6B6B' : '#555555')
+        .fontColor(this.currentTab === index ? '#FF6B6B' : '#999999')
         .fontWeight(this.currentTab === index ? FontWeight.Medium : FontWeight.Regular)
     }
     .padding({ top: 8, bottom: 12 })

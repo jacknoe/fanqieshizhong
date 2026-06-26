@@ -45,16 +45,16 @@ export struct TimerPage {
           .height(280)
           .style({ strokeWidth: 14 })
           .color(this.timerColor)
-          .backgroundColor('#2A2A4A')
+          .backgroundColor('#E8E8E8')
 
         Column() {
           Text(formatTime(this.remainingSeconds))
             .fontSize(64)
             .fontWeight(FontWeight.Bold)
-            .fontColor('#FFFFFF')
+            .fontColor('#333333')
           Text(this.stateLabel)
             .fontSize(18)
-            .fontColor('#AAAAAA')
+            .fontColor('#666666')
             .margin({ top: 8 })
         }
         .alignItems(HorizontalAlign.Center)
@@ -109,7 +109,7 @@ export struct TimerPage {
           Button('重置')
             .width(120)
             .height(48)
-            .backgroundColor('#666666')
+            .backgroundColor('#999999')
             .borderRadius(24)
             .fontSize(18)
             .fontWeight(FontWeight.Medium)
@@ -126,12 +126,13 @@ export struct TimerPage {
 
       Text(`${this.completedPomodoros} 个番茄已完成`)
         .fontSize(14)
-        .fontColor('#888888')
+        .fontColor('#999999')
         .margin({ top: 24 })
     }
     .width('100%')
     .height('100%')
     .padding({ top: 40 })
+    .backgroundColor('#F0F2F5')
   }
 
   @Builder
@@ -141,7 +142,7 @@ export struct TimerPage {
         Circle()
           .width(12)
           .height(12)
-          .fill(dot.filled ? '#FF6B6B' : '#3A3A3A')
+          .fill(dot.filled ? '#FF6B6B' : '#D0D0D0')
           .margin({ left: 6, right: 6 })
       }, (dot: DotItem) => dot.index.toString())
     }

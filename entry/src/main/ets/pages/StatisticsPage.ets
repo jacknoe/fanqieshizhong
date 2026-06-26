@@ -42,7 +42,7 @@ export struct StatisticsPage {
       Text('今日概览')
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
-        .fontColor('#FFFFFF')
+        .fontColor('#333333')
       Row() {
         StatItem({ label: '完成番茄', value: `${this.todayCompleted}`, color: '#FF6B6B' })
         StatItem({ label: '专注时长', value: `${this.todayFocusMinutes}分钟`, color: '#4ECB71' })
@@ -53,7 +53,7 @@ export struct StatisticsPage {
     }
     .width('100%')
     .padding(20)
-    .backgroundColor('#16213E')
+    .backgroundColor('#FFFFFF')
     .borderRadius(16)
   }
 
@@ -66,7 +66,7 @@ export struct StatisticsPage {
     .justifyContent(FlexAlign.SpaceAround)
     .margin({ top: 16 })
     .padding(20)
-    .backgroundColor('#16213E')
+    .backgroundColor('#FFFFFF')
     .borderRadius(16)
   }
 
@@ -77,10 +77,10 @@ export struct StatisticsPage {
         Text('每日目标')
           .fontSize(16)
           .fontWeight(FontWeight.Medium)
-          .fontColor('#FFFFFF')
+          .fontColor('#333333')
         Text(`${this.todayCompleted} / ${this.dailyGoal} 个番茄`)
           .fontSize(14)
-          .fontColor('#AAAAAA')
+          .fontColor('#666666')
       }
       .width('100%')
       .justifyContent(FlexAlign.SpaceBetween)
@@ -90,12 +90,12 @@ export struct StatisticsPage {
         .height(80)
         .style({ strokeWidth: 8 })
         .color('#FF6B6B')
-        .backgroundColor('#2A2A4A')
+        .backgroundColor('#E8E8E8')
         .margin({ top: 12 })
     }
     .width('100%')
     .padding(20)
-    .backgroundColor('#16213E')
+    .backgroundColor('#FFFFFF')
     .borderRadius(16)
     .margin({ top: 16 })
   }
@@ -106,12 +106,12 @@ export struct StatisticsPage {
       Text('本周趋势')
         .fontSize(16)
         .fontWeight(FontWeight.Medium)
-        .fontColor('#FFFFFF')
+        .fontColor('#333333')
 
       Canvas(this.settings)
         .width('100%')
         .height(180)
-        .backgroundColor('#0D1117')
+        .backgroundColor('#F5F5F5')
         .borderRadius(12)
         .margin({ top: 12 })
         .onReady(() => {
@@ -120,7 +120,7 @@ export struct StatisticsPage {
     }
     .width('100%')
     .padding(20)
-    .backgroundColor('#16213E')
+    .backgroundColor('#FFFFFF')
     .borderRadius(16)
     .margin({ top: 16 })
   }
@@ -158,11 +158,11 @@ export struct StatisticsPage {
       ctx.beginPath();
       ctx.textAlign = 'center';
       ctx.font = '12px sans-serif';
-      ctx.fillStyle = '#888888';
+      ctx.fillStyle = '#999999';
       ctx.fillText(days[i], x + barW / 2, pad + chartH + 16);
 
       if (values[i] > 0) {
-        ctx.fillStyle = '#FFFFFF';
+        ctx.fillStyle = '#333333';
         ctx.font = '10px sans-serif';
         ctx.fillText(`${values[i]}`, x + barW / 2, y - 6);
       }
@@ -207,7 +207,7 @@ export struct StatItem {
         .fontColor(this.color)
       Text(this.label)
         .fontSize(13)
-        .fontColor('#AAAAAA')
+        .fontColor('#666666')
         .margin({ top: 4 })
     }
   }
