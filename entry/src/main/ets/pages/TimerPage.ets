@@ -11,11 +11,6 @@ export struct TimerPage {
 
   private timerService: TimerService = TimerService.getInstance();
 
-  get progress(): number {
-    if (this.totalSeconds <= 0) return 0;
-    return (this.totalSeconds - this.remainingSeconds) / this.totalSeconds;
-  }
-
   get stateLabel(): string {
     if (this.state === TimerState.FOCUSING || this.state === TimerState.FOCUS_PAUSED) {
       return '专注中';
@@ -40,7 +35,7 @@ export struct TimerPage {
   build() {
     Column() {
       Stack() {
-        Progress({ value: this.progress, total: 1, type: ProgressType.Ring })
+        Progress({ value: this.totalSeconds <= 0 ? 0 : (this.totalSeconds - this.remainingSeconds) / this.totalSeconds, total: 1, type: ProgressType.Ring })
           .width(280)
           .height(280)
           .style({ strokeWidth: 14 })
