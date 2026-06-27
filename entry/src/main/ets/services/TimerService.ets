@@ -1,11 +1,17 @@
 import { DEFAULT_FOCUS_MINUTES, DEFAULT_SHORT_BREAK_MINUTES, DEFAULT_LONG_BREAK_MINUTES,
   POMODOROS_BEFORE_LONG_BREAK, TimerState, AppStorageKeys } from '../utils/Constants';
+import { PersistenceService } from './PersistenceService';
 
 export class TimerService {
   private static instance: TimerService;
   private timerId: number = -1;
   private updateIntervalId: number = -1;
   private onFocusComplete: (() => void) | null = null;
+  private persistence: PersistenceService | null = null;
+
+  setPersistence(p: PersistenceService): void {
+    this.persistence = p;
+  }
 
   static getInstance(): TimerService {
     if (TimerService.instance === undefined) {
@@ -191,6 +197,7 @@ export class TimerService {
     todayMinutes += focusMinutes;
     AppStorage.setOrCreate(AppStorageKeys.TODAY_COMPLETED, todayCompleted);
     AppStorage.setOrCreate(AppStorageKeys.TODAY_FOCUS_MINUTES, todayMinutes);
+    this.flushPersistence();
   }
 
   getTodayCompleted(): number {
@@ -206,5 +213,12 @@ export class TimerService {
     AppStorage.setOrCreate(AppStorageKeys.TODAY_FOCUS_MINUTES, 0);
     AppStorage.setOrCreate(AppStorageKeys.COMPLETED_POMODOROS, 0);
     AppStorage.setOrCreate(AppStorageKeys.SESSION_POMODOROS, 0);
+    this.flushPersistence();
+  }
+
+  private flushPersistence(): void {
+    if (this.persistence !== null) {
+      this.persistence.saveAll();
+    }
   }
 }
