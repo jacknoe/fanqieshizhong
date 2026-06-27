@@ -10,3 +10,5 @@ ArkTS 比 TypeScript 严格，以下写法一律禁止：
 - 组件传参用 `Comp({ prop: val })` 对象语法，不用位置参数
 - 子组件属性用 `@Prop` 而非 `private`
 - 数组 spread `...arr` 禁止 → 改用 `for` 循环
+- `build()` 方法内开头不能写 `const` 等变量声明 → 条件判断直接在 `if` 里写完整表达式
+- `get` 取值器在 `if` 条件中返回 `undefined` → 不要用 getter 做条件判断，直接在 `if` 里写 `this.state === X`
