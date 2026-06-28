@@ -8,7 +8,6 @@ export struct StatisticsPage {
   @StorageLink(AppStorageKeys.DAILY_GOAL) dailyGoal: number = 8;
 
   private settings: CanvasRenderingContext2D = new CanvasRenderingContext2D();
-  private chartWidth: number = 360;
 
   build() {
     Column() {
@@ -105,12 +104,12 @@ export struct StatisticsPage {
 
       Canvas(this.settings)
         .width('100%')
-        .height(180)
+        .height(160)
         .backgroundColor('#F5F5F5')
         .borderRadius(12)
         .margin({ top: 12 })
         .onReady(() => {
-          this.drawWeekChart();
+          this.drawWeekChart(this.settings.width, this.settings.height);
         })
     }
     .width('100%')
@@ -120,15 +119,15 @@ export struct StatisticsPage {
     .margin({ top: 16 })
   }
 
-  drawWeekChart(): void {
+  drawWeekChart(canvasWidth: number, canvasHeight: number): void {
     const ctx = this.settings;
-    const width = this.chartWidth;
-    const height = 160;
+    const width = canvasWidth > 0 ? canvasWidth : 360;
+    const height = canvasHeight > 0 ? canvasHeight : 140;
     const pad = 30;
     const chartW = width - pad * 2;
-    const chartH = height - pad * 2;
+    const chartH = height - pad - 40;
     const barCount = 7;
-    const barW = chartW / barCount - 8;
+    const barW = chartW / barCount - 6;
 
     ctx.clearRect(0, 0, width, height);
 
@@ -152,14 +151,14 @@ export struct StatisticsPage {
 
       ctx.beginPath();
       ctx.textAlign = 'center';
-      ctx.font = '12px sans-serif';
+      ctx.font = '18px HarmonyOS Sans';
       ctx.fillStyle = '#999999';
-      ctx.fillText(days[i], x + barW / 2, pad + chartH + 16);
+      ctx.fillText(days[i], x + barW / 2, pad + chartH + 24);
 
       if (values[i] > 0) {
         ctx.fillStyle = '#333333';
-        ctx.font = '10px sans-serif';
-        ctx.fillText(`${values[i]}`, x + barW / 2, y - 6);
+        ctx.font = '16px HarmonyOS Sans';
+        ctx.fillText(`${values[i]}`, x + barW / 2, y - 14);
       }
     }
   }
