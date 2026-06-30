@@ -1,4 +1,4 @@
-import { TimerState, AppStorageKeys, formatTime } from '../utils/Constants';
+import { DEFAULT_FOCUS_MINUTES, TimerState, AppStorageKeys, formatTime } from '../utils/Constants';
 import { TimerService } from '../services/TimerService';
 
 @Component
@@ -8,6 +8,7 @@ export struct TimerPage {
   @StorageLink(AppStorageKeys.TOTAL_SECONDS) totalSeconds: number = 0;
   @StorageLink(AppStorageKeys.COMPLETED_POMODOROS) completedPomodoros: number = 0;
   @StorageLink(AppStorageKeys.SESSION_POMODOROS) sessionPomodoros: number = 0;
+  @StorageLink(AppStorageKeys.FOCUS_MINUTES) focusMinutes: number = DEFAULT_FOCUS_MINUTES;
 
   private timerService: TimerService = TimerService.getInstance();
 
@@ -35,7 +36,7 @@ export struct TimerPage {
   build() {
     Column() {
       Stack() {
-        Progress({ value: this.totalSeconds <= 0 ? 0 : (this.totalSeconds - this.remainingSeconds) / this.totalSeconds, total: 1, type: ProgressType.Ring })
+        Progress({ value: this.state === TimerState.IDLE ? 0 : (this.totalSeconds <= 0 ? 0 : (this.totalSeconds - this.remainingSeconds) / this.totalSeconds), total: 1, type: ProgressType.Ring })
           .width(280)
           .height(280)
           .style({ strokeWidth: 14 })
@@ -43,7 +44,7 @@ export struct TimerPage {
           .backgroundColor('#E8E8E8')
 
         Column() {
-          Text(formatTime(this.remainingSeconds))
+          Text(formatTime(this.state === TimerState.IDLE ? this.focusMinutes * 60 : this.remainingSeconds))
             .fontSize(64)
             .fontWeight(FontWeight.Bold)
             .fontColor('#333333')
